@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link href="style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/kxq5zqv.css">
+        <meta name="viewport" content="width=device-width, initial-scale:1.0">
+        <title>blow up!</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <style>
+            @font-face {
+                font-family: 'NewFontVF';
+                src: url('NewFontVF 2.ttf') format('truetype-variations');
+                font-weight: 0 1000;
+            }
+
+            @font-face {
+                font-family: 'tiny';
+                src: url('tiny.ttf') format('truetype-variations');
+                font-weight: 0 300;
+            }
+
+            body{
+                overflow: hidden;
+            }
+
+            #mic{
+                position:fixed;
+                width:100%;
+                text-align:center;
+                bottom:25px;
+                visibility:visible;
+            }
+
+            #startButton{
+                font-family: "new-zen", sans-serif;
+                width: 20%;
+                font-size:1.8em;
+                border-radius: 20px;
+                background-color: rgba(255,255,255);
+                color: grey;
+                outline: none;
+                height: 50px;
+            }
+
+            #text {
+                font-family: 'NewFontVF';
+                font-size:13em;
+                position: fixed;
+                bottom:50px;
+                font-variation-settings: "wght" 0; /* initial font weight */
+                visibility: visible;
+                background-color:rgba(255,255,255,0.2);
+                border-radius: 10px;
+                transform: translate(-50%, 0);
+                margin-left:50%;   
+                height: 1em;
+                overflow: hidden;
+                resize: none;
+                line-height: 1em; 
+                text-align: center;
+                width: 90%;
+                padding: 40px;
+                animation: moveText 10s infinite; 
+            }
+
+            #instruction {
+                display: flex;
+
+                font-family: "new-zen", sans-serif;
+                flex-direction: row;
+                font-weight: 400;
+                font-style: normal;
+                position: fixed;
+                font-size: 1.2em;
+                height:100%;
+                visibility:hidden;
+            }
+
+            #ex {
+                flex-basis: 30%;
+                margin-left: 80px;
+                margin-right: 40px;
+                line-height:1.7em;
+                overflow: auto;
+            }
+
+            #ex::-webkit-scrollbar {
+                display: none;
+            }
+
+            #tip::-webkit-scrollbar {
+                display: none;
+            }
+
+            #tip {
+                flex-basis: 50%;
+                margin-top: 40px;
+                margin-left: 80px;
+                margin-right: 40px;
+                text-align:right;
+                overflow: auto;
+                color: rgb(0,159,227);
+                -webkit-text-stroke: 2px white;
+            }
+
+            #first {
+                font-family: "tiny", sans-serif;
+                font-size: 3.5em;
+                line-height:0.8em;
+                font-weight: 140;
+                animation: cloud 4s infinite; 
+            }
+
+            #background-video {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                min-width: 100%;
+                z-index: -2;
+                background-size: cover;
+
+            }
+
+            #notice {
+                position:fixed;
+                font-family: "tiny", sans-serif;
+                font-size: 15em;
+                line-height:0.8em;
+                font-weight: 140;
+                animation: cloud 2s infinite; 
+                color: white;
+                bottom: 260px;
+                text-align: center;
+                width:100%;
+                visibility: visible;
+            }
+
+            #mobile {
+                display: none;
+            }
+
+            #blow {
+                position:fixed;
+                font-family: "tiny", sans-serif;
+                font-size: 12em;
+                line-height:0.8em;
+                font-weight: 140;
+                animation: cloud 3s infinite; 
+                color: white;
+                bottom: 260px;
+                text-align: center;
+                width:100%;
+                visibility: hidden;
+                opacity:100%;
+            }
+
+            @media only screen and (max-width: 600px) {
+                #background-video {
+                    display: none;
+                }
+                #mobile {
+                    display: block;
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    min-width: 100%; 
+                    z-index: -1;
+                    background-size: cover;
+                }
+
+                #startButton{
+                    font-size:1em;
+                }
+            }
+
+            @keyframes moveLetter {
+                        0% {
+                        transform: translateX(0) rotate(0deg);
+                        }
+
+                        5%{
+                            transform: translateX(20) rotate(10deg);
+                        }
+                        20% {
+                            transform: translateX(calc(var(--translate-x, 10vw) - 20%)) rotate(-20deg);
+                        }
+                        60% {
+                            transform: translateX(calc(var(--translate-x, 10vw) + 20%)) rotate(20deg);
+                        }
+                        100% {
+                            transform: translateX(0) rotate(0deg);
+                        }
+            }
+
+            @keyframes cloud {
+                0% {
+                    font-weight:100;
+                }
+
+                30% {
+                    font-weight: 140;
+                }
+
+                70% {
+                    font-weight: 140;
+                }
+
+                100% {
+                    font-weight:100;
+                }
+            }
+
+
+            @keyframes blow {
+                0% {
+                    font-weight:75;
+                }
+
+
+                30% {
+                    font-weight: 200;
+
+                }
+
+                40% {
+                    font-weight: 200;
+                }
+
+                100% {
+                    font-weight:75;
+                }
+            }
+            
+
+                .moving-text {
+                display: inline-block;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
+                animation-name: moveLetter;
+                animation-play-state: paused;
+                }
+
+
+
+        </style>
+    </head>
+        <body>
+            <div id="text"  spellcheck="false" contenteditable="true">
+                
+            </div>
+            <div id="mic">
+            <button id="startButton">Click to blow</button>
+            </div>
+            
+            <video id="background-video" autoplay muted loop>
+                <source src="web7.mp4" type="video/mp4">
+            </video>              
+
+            
+            <video id="mobile" autoplay loop muted>
+                <source src="mobile.mp4" type="video/mp4">
+            </video>
+
+            <article id="instruction">
+                <div id="ex">
+                    <P id=first>The project 'Blow up' explores the impact of technological advancements on type design and the expanding possibilities it brings. </P><br>
+
+                    The shape of typefaces has continuously evolved due to technological influences, and this interaction is ongoing. The OpenType variable font is a significant development in the present. It allows for multiple variations within a single font file, eliminating the need for designers to create separate fonts for different weights or features. To adapt to these changes, a workshop was held to experience variable fonts in typography practice, leading to the 'Blow up' project. <br><br>
+                    
+                    'Blow up' focuses on a variable font concept inspired by balloons, going beyond traditional variations. It explores fluidity in type forms, including color variations and interactive displays. The font's variations occur in both weight and decoration simultaneously, with the font transforming from skinny to fat like a balloon with serif elements. The user's interaction directly controls the type, engaging them more with the font's content. <br><br>
+                    
+                    The medium of the project responds to the new wave of variability. Instead of rigid forms on paper, the font's characteristics are expressed digitally. A web specimen showcases the font's variability, allowing users to experience its shape and characteristics in real-time. The typeface's visual components, such as color and background, align with the concept of joy and interaction. <br><br>
+                    
+                    The project emphasizes that technological advancements have expanded the possibilities for typefaces, allowing them to tell their narrative in a bold manner. Graphic designers can now unleash their imagination with these new tools. However, this is not the end point of development, as future technological advancements will continue to shape and transform typefaces in ways yet to be imagined.<br><br><br><br><br>
+                </div>
+                <div id="tip"><br><br>you can find more variable fonts <br>and contemporary typeface <br>in those incredible archives! <br><br>
+                    <a  href="https://v-fonts.com/" target="_blank"><img src="blue.png" width="80%" "></a>
+                    <br><br> 
+                    <a  href="https://www.instagram.com/contemporarytype/" target="_blank"><img src="contemporary.png" width="80%" ></a>
+                </div>
+            </article>
+
+            <div id="notice">Type here</div>
+            <div id="blow">BLOW</div>
+
+        <script src="sketch.js"></script>
+        </body>
+</html>
